@@ -1,6 +1,4 @@
 connection: "snowlooker"
-
-# include all the views
 include: "/views/**/*.view"
 
 datagroup: snow_raj_default_datagroup {
@@ -9,9 +7,8 @@ datagroup: snow_raj_default_datagroup {
 }
 
 persist_with: snow_raj_default_datagroup
-
+explore: test_kunal {}
 explore: all_types {}
-
 explore: billion_orders {
   join: orders {
     type: left_outer
@@ -25,6 +22,7 @@ explore: billion_orders {
     relationship: many_to_one
   }
 }
+
 
 explore: fatal_error_incremental_bug {
   join: users {
@@ -49,7 +47,9 @@ explore: hundred_million_orders {
 }
 
 explore: linna2 {}
-
+explore: users {
+    sql_always_where: ${sql_always_where_inject};;
+}
 explore: linna3 {}
 
 explore: orders {
@@ -83,5 +83,3 @@ explore: order_items {
 }
 
 explore: timestamp_test {}
-
-explore: users {}

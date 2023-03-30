@@ -1,16 +1,33 @@
+#include: "/PoP_files/pop_parameters_snow.view.lkml"
 view: orders {
   sql_table_name: "LOOKER_TEST"."ORDERS"
     ;;
+    #extends: [pop_parameters_snow]
   drill_fields: [id]
-
+#extends: [pop_parameters_snow]
   dimension: id {
     primary_key: yes
     type: number
     sql: ${TABLE}."ID" ;;
   }
 
-  dimension_group: created {
+  dimension_group: original_created {
     type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}."CREATED_AT" ;;
+  }
+  dimension_group: event {
+    type: time
+    label: "order_event"
+    hidden: yes
     timeframes: [
       raw,
       time,
